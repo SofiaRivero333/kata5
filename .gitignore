@@ -1,0 +1,16 @@
+**/target/
+**/out/
+**/build/
+**/bin/
+.idea/
+*.iml
+*.iws
+*.ipr
+*.class
+*.jar
+*.war
+*.zip
+*.exe
+*.log
+.DS_Store
+__MACOSX/

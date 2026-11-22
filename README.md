@@ -48,6 +48,7 @@ He separado el proyecto en dos módulos: primes-service y primes-client. Las cla
 | Consul, API e interfaz web | 8500 | http://localhost:8500/ui/ |
 | Consul, DNS | 8600, UDP/TCP | Dentro de la red de Docker. |
 | Cada réplica del servicio | 8080 | A través de NGINX. |
+
 Todos los contenedores comparten la red kata5-primes_default y se encuentran por sus nombres de servicio. Ejecuto el cliente en mi equipo y envío sus peticiones a NGINX. Este consulta el DNS de Consul y las reparte entre las réplicas del grupo correspondiente. Consul comprueba la ruta /health de cada réplica. En NGINX uso zone, resolver y service con resolve para actualizar los destinos por DNS SRV.
 
 ## 6. Rutas y comprobación del reparto, la baja y el alta

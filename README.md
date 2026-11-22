@@ -56,6 +56,7 @@ Todos los contenedores comparten la red kata5-primes_default y se encuentran por
 | --- | --- | --- | --- |
 | /api/v1/primes/ | primes_v1 | primes-v1 | v1-a, v1-b |
 | /api/v2/primes/ | primes_v2 | primes-v2 | v2-a, v2-b |
+
 Las dos rutas utilizan el mismo cálculo, pero cada una tiene su propio grupo de réplicas. Con el parámetro n indico cuántos términos quiero obtener, entre 0 y 1000.
 
 ### 6.1. Reparto inicial

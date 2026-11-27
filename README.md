@@ -15,7 +15,7 @@ Trabajo desde IntelliJ y Docker Desktop, pero dejo también los comandos equival
 mvn clean package
 docker compose up -d --build
 ```
-El comando para ejecutar el cliente está en el apartado 6.1. El servicio arranca dentro de los contenedores con los argumentos definidos en Compose. Para la primera construcción necesito conexión a Internet para descargar las dependencias y las imágenes.
+El comando para ejecutar el cliente está en el apartado 6.1. El servicio arranca dentro de los contenedores con los argumentos definidos en Compose. Para la primera construcción se necesita conexión a Internet para descargar las dependencias y las imágenes.
 
 ## 3. Dependencias y versión de JDK
 | Tecnología | Versión | Uso |
@@ -28,10 +28,10 @@ El comando para ejecutar el cliente está en el apartado 6.1. El servicio arranc
 | Docker Desktop | 4.99.0, con Compose v2 | Ejecutar los contenedores. |
 | NGINX | 1.28.0 | Enrutar y repartir las peticiones. |
 | Consul | 1.21.5 | Registrar las réplicas y ofrecer el descubrimiento DNS SRV. |
-Para las peticiones del cliente utilizo HttpClient, incluido en Java.
+Para las peticiones del cliente he utilizado HttpClient, incluido en Java.
 
 ## 4. Estructura y clases principales
-He separado el proyecto en dos módulos: primes-service y primes-client. Las clases Java están en src/main/java/kata5 dentro de cada módulo.
+El proyecto esta separado en dos módulos: primes-service y primes-client. Las clases Java están en src/main/java/kata5 dentro de cada módulo.
 | Archivo | Función |
 | --- | --- |
 | primes-service: Webservice.java | Atiende las peticiones, calcula la serie y registra la réplica en Consul. |
@@ -57,10 +57,10 @@ Todos los contenedores comparten la red kata5-primes_default y se encuentran por
 | /api/v1/primes/ | primes_v1 | primes-v1 | v1-a, v1-b |
 | /api/v2/primes/ | primes_v2 | primes-v2 | v2-a, v2-b |
 
-Las dos rutas utilizan el mismo cálculo, pero cada una tiene su propio grupo de réplicas. Con el parámetro n indico cuántos términos quiero obtener, entre 0 y 1000.
+Las dos rutas utilizan el mismo cálculo, pero cada una tiene su propio grupo de réplicas. Con el parámetro n se indica cuántos términos se pueden obtener, entre 0 y 1000.
 
 ### 6.1. Reparto inicial
-Dejo el cliente ejecutándose y reviso X-Node para identificar las réplicas que responden. Espero que aparezcan los dos nodos de cada grupo, con HTTP 200 y el mismo resultado para una misma consulta.
+El cliente ejecutándose y reviso X-Node para identificar las réplicas que responden. Espero que aparezcan los dos nodos de cada grupo, con HTTP 200 y el mismo resultado para una misma consulta.
 El comando equivalente para ejecutar el cliente es:
 ```shell
 java -jar primes-client/target/primes-client-1.0.jar
@@ -75,7 +75,7 @@ docker compose stop primes-v1-a
 Espero a que Consul detecte la baja y NGINX actualice sus destinos. Después compruebo que la primera ruta siga respondiendo mediante v1-b y que la segunda mantenga sus propias réplicas.
 
 ### 6.3. Alta de una réplica
-En IntelliJ utilizo la configuración Alta-v1-c con compose.yaml, el servicio primes-v1-c, Start / Selected services, Attach to / None y Build / Always. Su comando equivalente es:
+En IntelliJ uso la configuración Alta-v1-c con compose.yaml, el servicio primes-v1-c, Start / Selected services, Attach to / None y Build / Always. Su comando equivalente es:
 ```shell
 docker compose up -d --build --no-deps primes-v1-c
 ```
